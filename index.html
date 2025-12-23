@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <title>Nom Totem</title>
+  <title>Découvre ton nom de YouTubeur d'extrême droite</title>
   <style>
     body {
       font-family: Georgia, serif;
@@ -42,7 +42,7 @@
 
 <div class="container">
   <h1>Découvre ton nom de YouTubeur d'extrême droite</h1>
-  <button onclick="tirerNom()">Tirer un nom</button>
+  <button onclick="tirerNom()">Je veux devenir un facho dangereux ! </button>
   <div id="resultat"></div>
 </div>
 
@@ -126,7 +126,7 @@
   const adjectif = adjectifs[Math.floor(Math.random() * adjectifs.length)];
   const crime = crimes[Math.floor(Math.random() * crimes.length)];
 
-  document.getElementById("resultat").textContent =
+  document.getElementById("resultat").innerHTML =
     `Et ton nom de YouTubeur d'extrême droite est … <br/><center><h1>${animal} ${adjectif}</h1><br/> Et tu seras bientôt accusé de...<br/> ${crime} !`;
 }
 </script>
