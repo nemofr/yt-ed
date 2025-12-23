@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Nom Totem</title>
+  <style>
+    body {
+      font-family: Georgia, serif;
+      background-color: #f5f5f5;
+      color: #222;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .container {
+      text-align: center;
+      max-width: 600px;
+      padding: 2rem;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    }
+
+    button {
+      margin-top: 1.5rem;
+      padding: 0.8rem 1.5rem;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    #resultat {
+      margin-top: 2rem;
+      font-size: 1.4rem;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h1>Découvre ton nom</h1>
+  <button onclick="tirerNom()">Tirer un nom</button>
+  <div id="resultat"></div>
+</div>
+
+<script>
+  const animaux = [
+    "Aigle","Alligator","Antilope","Araignée","Autruche","Babouin","Baleine","Bison","Blaireau","Boa",
+    "Bouquetin","Buffle","Caméléon","Canard","Castor","Cerf","Chacal","Chat","Chien","Chimpanzé",
+    "Cobra","Condor","Corbeau","Coyote","Crocodile","Dauphin","Dingo","Dromadaire","Éléphant","Émeu",
+    "Faucon","Flamant","Fourmilier","Furet","Gazelle","Gibbon","Gorille","Grizzli","Hérisson","Hibou",
+    "Hippopotame","Hyène","Iguane","Jaguar","Koala","Lama","Léopard","Lion","Loup","Loutre",
+    "Lynx","Macaque","Manchot","Mangouste","Marmotte","Martre","Mérou","Mouflon","Morse","Moustique",
+    "Narval","Ocelot","Orang-outan","Orque","Ours","Panda","Panthère","Paresseux","Pélican","Pingouin",
+    "Piranha","Poney","Porc-épic","Puma","Python","Ragondin","Raton","Renard","Rhinocéros","Sanglier",
+    "Saumon","Serpent","Singe","Suricate","Tamarin","Taureau","Tigre","Toucan","Truite","Vautour",
+    "Wapiti","Yack","Zèbre","Aurochs","Bécasse","Bernard-l’ermite","Bousier","Cachalot","Caracal","Cigogne",
+    "Colibri","Crapaud","Dindon","Épervier","Fennec","Gecko","Hamadryas","Harfang","Ibis","Kangourou",
+    "Lamantin","Lézard","Makak","Nandou","Nyala","Okapi","Pangolin","Quokka","Renne","Saki",
+    "Tamanoir","Urubu","Varan","Wallaby","Xérus","Zorille","Aplodontia","Bandicoot","Cacatoès","Daman",
+    "Échidné","Fossa","Gavial","Hippocampe","Indri","Jacana","Kakapo","Loris","Manul","Numbat",
+    "Onagre","Potamochère","Quetzal","Sitatunga","Tarsier","Viscache","Wombat","Xenops","Yapock","Zibeline"
+  ];
+
+  const adjectifs = [
+    "Agile","Ancien","Ardent","Audacieux","Bienveillant","Brave","Calme","Chaleureux","Clairvoyant","Curieux",
+    "Déterminé","Discret","Éloquent","Endurant","Fier","Fort","Généreux","Habile","Indomptable","Instinctif",
+    "Joyeux","Juste","Loyal","Lucide","Majestueux","Méthodique","Noble","Observateur","Patient","Persévérant",
+    "Prudent","Puissant","Rapide","Réfléchi","Résilient","Rusé","Sage","Silencieux","Solide","Sûr",
+    "Tenace","Tranquille","Vigilant","Vif","Vaillant","Alerte","Assuré","Confiant","Créatif","Discipliné",
+    "Équilibré","Flegmatique","Franc","Harmonieux","Inspiré","Intrépide","Jovial","Mesuré","Modeste","Naturel",
+    "Optimiste","Perspicace","Posé","Protecteur","Rationnel","Réactif","Réservé","Robuste","Serein","Stable",
+    "Stoïque","Stratégique","Subtil","Tempéré","Volontaire","Zen","Astucieux","Attentif","Charismatique","Concentré",
+    "Constant","Décidé","Efficace","Énergique","Engagé","Flexible","Focusé","Imperturbable","Inventif","Méfiant",
+    "Mémoire","Nuancé","Organisé","Persuasif","Pondéré","Précis","Prévenant","Réglé","Responsable","Structuré",
+    "Tactique","Visionnaire","Appliqué","Cohérent","Dévoué","Endurci","Éthique","Fidèle","Honnête","Impartial",
+    "Logique","Maîtrisé","Mesquin","Minutieux","Modéré","Persistant","Pragmatique","Préparé","Réglé","Rigoureux",
+    "Sobre","Soigneux","Stable","Téméraire","Vigilant","Zélé","Aligné","Ancré","Avisé","Bâtisseur",
+    "Consciencieux","Constant","Droit","Éclairé","Flegme","Gouverné","Humble","Immuable","Intègre","Mesurant",
+    "Négociateur","Ordonné","Persévérant","Protectif","Réfléchi","Responsif","Solennel","Stratège","Tempérant","Visionné"
+  ];
+
+  const crimes = [
+  "vol",
+  "faux témoignage",
+  "meurtre",
+  "chantage",
+  "trafic de drogue",
+  "harcèlement sexuel",
+  "harcèlement moral",
+  "faire partie d'un réseau d'espionnage au profit de la Russie",
+  "blanchiment d'argent",
+  "piratage de compte de personnes de gauche",
+  "vandalisme de locaux LGBTQIA+",
+  "corruption",
+  "braconnage",
+  "kidnapping",
+  "tentaive d'escroquerie en bande organisée",
+  "terrorisme",
+  "fraude au fisc",
+  "empoisonnement",
+  "incendie criminel",
+  "viol",
+  "lynchage en public",
+  "séquestration",
+  "torture",
+  "tentative d'assassinat",
+  "délit d’initié",
+  "crime organisé",
+  "trucage de compte",
+  "sédition",
+  "conspiration",
+  "prédation",
+  "pratiquer l'exploitation secuelle de mineures",
+  "violence contre ta conjointe",
+  "menace de morts",
+  "soumission forcée"
+];
+
+
+  function tirerNom() {
+  const animal = animaux[Math.floor(Math.random() * animaux.length)];
+  const adjectif = adjectifs[Math.floor(Math.random() * adjectifs.length)];
+  const crime = crimes[Math.floor(Math.random() * crimes.length)];
+
+  document.getElementById("resultat").textContent =
+    `Et ton nom de YouTubeur d'extrême droite est … ${animal} ${adjectif}, et tu seras accusé de ${crime} !`;
+}
+</script>
+
+</body>
+</html>
